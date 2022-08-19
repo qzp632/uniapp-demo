@@ -4,7 +4,8 @@
 </script>
 
 <template>
-	<TopNav title="集市" />
+	<!-- <TopNav title="集市" /> -->
+	<TopNav>集市</TopNav>
 	<div>market</div>
 	<TabBar currentPath="/pages/market/market"></TabBar>
 </template>

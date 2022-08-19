@@ -1,52 +1,25 @@
 <script setup>
-	import {
-		ref,
-		reactive
-	} from 'vue'
-
 	import TopNav from '@/components/topNav/TopNav.vue'
-	import { axios } from '@/static/axios.js'
-	import { setStorage, formEl, redirectTo } from '@/utils/index.js'
-	
-	const valiForm = ref(null)
+	import useRegister from './use-register.js'
+	import {
+		axios
+	} from '@/utils/axios.js'
+	import {
+		setStorage,
+		formEl,
+		redirectTo
+	} from '@/utils/index.js'
 
-	const valiFormData = reactive({
-		telephone: '',
-		password: '',
-		pwd: '',
-		code: ''
-	})
-
-	const rules = {
-		telephone: {
-			rules: [{
-				required: true,
-				errorMessage: '手机号不能为空'
-			}]
-		},
-		password: {
-			rules: [{
-				required: true,
-				errorMessage: '密码不能为空'
-			}]
-		},
-		pwd: {
-			rules: [{
-				required: true,
-				errorMessage: '确认密码不能为空'
-			}]
-		},
-		code: {
-			rules: [{
-				required: true,
-				errorMessage: '验证码不能为空'
-			}]
-		}
-	}
+	const {
+		valiForm,
+		valiFormData,
+		rules
+	} = useRegister()
 	
-	const submit = async(refEl) => {
+	
+	const submit = async (refEl) => {
 		await formEl(refEl)
-		
+
 		const result = await axios.post({
 			url: '/login/register', //仅为示例，并非真实接口地址。
 			data: {
@@ -55,24 +28,23 @@
 				"telephone": valiFormData.telephone //手机号
 			}
 		})
-		
+
 		setStorage('token', result.content)
-		
+
 		redirectTo('/pages/home/home')
 	}
-	
-	const getCode = async() => {
-		
+
+	const getCode = async () => {
 		const result = await axios.post({
 			url: '/login/sendMsg', //仅为示例，并非真实接口地址。
 			data: {
 				"tel": valiFormData.telephone //手机号
 			},
-			header:{
-				'content-type':'application/x-www-form-urlencoded'
+			header: {
+				'content-type': 'application/x-www-form-urlencoded'
 			}
 		})
-		
+
 		uni.showToast({
 			title: '发送成功',
 			duration: 2000
@@ -80,13 +52,19 @@
 	}
 
 	const login = () => {
-		redirectTo('/pages/login/login')
+		redirectTo('/pages/login/login', 2000)
+	}
+	
+	const onFieldChange = (name, value) => {
+		valiForm.value.setValue(name,value)
 	}
 </script>
 
 <template>
 	<view class="register-wrapper">
-		<TopNav title="注册" />
+		<!-- <TopNav title="注册" /> -->
+		
+		<TopNav>注册</TopNav>
 		<view class="title">欢迎注册!</view>
 
 		<view class="example">
@@ -99,7 +77,7 @@
 					<uni-easyinput v-model="valiFormData.password" placeholder="请输入密码" />
 				</uni-forms-item>
 				<uni-forms-item label="确认密码" required name="pwd">
-					<uni-easyinput v-model="valiFormData.pwd" placeholder="请输入确认密码" />
+					<uni-easyinput @change="onFieldChange('pwd', valiFormData.pwd)" v-model="valiFormData.pwd" placeholder="请输入确认密码" />
 				</uni-forms-item>
 				<uni-forms-item label="验证码" required name="code">
 					<uni-easyinput v-model="valiFormData.code" placeholder="请输入验证码" />
@@ -110,9 +88,9 @@
 			</uni-forms>
 
 		</view>
-		
+
 		<button class="btn" type="primary" @click="submit(valiForm)">注册</button>
-		
+
 		<view class="no-account">
 			<text class="account">已有账号?</text>
 			<text class="register" @click="login">马上登录</text>
@@ -133,6 +111,7 @@
 
 		.example {
 			position: relative;
+
 			.get-code {
 				position: absolute;
 				text-align: right;
@@ -144,10 +123,11 @@
 				bottom: -40rpx;
 			}
 		}
-		
+
 		.btn {
 			margin-top: 100rpx;
 		}
+
 		.no-account {
 			width: 100%;
 			height: 160rpx;
@@ -157,7 +137,7 @@
 			position: fixed;
 			left: 0;
 			bottom: 0;
-		
+
 			.register {
 				color: blue;
 			}

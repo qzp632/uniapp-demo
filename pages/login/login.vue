@@ -1,38 +1,24 @@
 <script setup>
-	import {
-		ref,
-		reactive
-	} from 'vue'
-
 	import TopNav from '@/components/topNav/TopNav.vue'
-	import { axios } from '@/static/axios.js'
-	import { setStorage, formEl, redirectTo } from '@/utils/index.js'
+	import useLogin from './use-login.js'
+	import {
+		axios
+	} from '@/utils/axios.js'
+	import {
+		setStorage,
+		formEl,
+		redirectTo
+	} from '@/utils/index.js'
 
-	const valiForm = ref(null)
-	
-	const valiFormData = reactive({
-		telephone: '',
-		password: '',
-	})
+	const {
+		valiForm,
+		valiFormData,
+		rules
+	} = useLogin()
 
-	const rules = {
-		telephone: {
-			rules: [{
-				required: true,
-				errorMessage: '手机号不能为空'
-			}]
-		},
-		password: {
-			rules: [{
-				required: true,
-				errorMessage: '密码不能为空'
-			}]
-		}
-	}
-	
 	const submit = async (refEl) => {
 		await formEl(refEl)
-		
+
 		const result = await axios.post({
 			url: '/login/login', //仅为示例，并非真实接口地址。
 			data: {
@@ -40,25 +26,25 @@
 				"telephone": valiFormData.telephone //手机号
 			}
 		})
-		
+
 		setStorage('token', result.content)
-		
+
 		redirectTo('/pages/home/home')
 	}
-	
+
 	const register = () => {
 		redirectTo('/pages/register/register')
 	}
-	
+
 	const forgetPwd = () => {
 		redirectTo('/pages/forgetPwd/forgetPwd')
 	}
-	
 </script>
 
 <template>
 	<view class="login-wrapper">
-		<TopNav title="登录" />
+		<!-- <TopNav title="登录" /> -->
+		<topNav>登录</topNav>
 		<view class="title">欢迎回来!</view>
 
 		<view class="example">

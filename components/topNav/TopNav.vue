@@ -39,15 +39,22 @@
 
 <template>
 	<uni-nav-bar class="nav-bar" :height="`${setPhoneHeight()}rpx`" fixed>
-		<div class="nav-box" :style="navBoxStyle()">{{ title }}</div>
+		
+		<div class="nav-box" :style="navBoxStyle()">
+			<slot></slot>
+		</div>
 	</uni-nav-bar>
 
 </template>
 
 <style lang="scss" scoped>
 	.nav-bar {
+		position: relative;
 		.nav-box {
 			width: 100%;
+			height: 100%;
+			position: absolute;
+			left: 0;
 			display: flex;
 			justify-content: center;
 			box-sizing: border-box;

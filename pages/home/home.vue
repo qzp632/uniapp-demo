@@ -8,7 +8,7 @@
 	
 	import useHomeIcon from './useHome/use-homeIcon.js'
 	import useHotList from './useHome/use-hotList.js'
-
+	
 	const {
 		iconList
 	} = useHomeIcon()
@@ -16,28 +16,12 @@
 		hotList
 	} = useHotList()
 
-	
-	const go = () => {
-		console.log(111);
-		// uni.scanCode({
-		// 	success: function (res) {
-		// 		console.log('条码类型：' + res.scanType);
-		// 		console.log('条码内容：' + res.result);
-		// 	}
-		// });
-		uni.openBluetoothAdapter({
-		  success(res) {
-		    console.log(res)
-		  }
-		})
-	}
-
 </script>
 
 <template>
 	
-	<TopNav title="首页" />
-
+	<!-- <TopNav title="首页" /> -->
+	<TopNav>首页</TopNav>
 	<view class="home">
 
 		<HomeSwiper></HomeSwiper>
@@ -45,17 +29,17 @@
 		<HomeIcon :iconList="iconList"></HomeIcon>
 
 		<view class="content">
-			<h3 class="h3" @click="go">热门项目</h3>
+			<h3 class="h3">热门项目</h3>
 			<HotList class="bgc" :hotList="hotList"></HotList>
 			<h3 class="h3">项目优选</h3>
 			<HotList :hotList="hotList"></HotList>
 			<HotList :hotList="hotList"></HotList>
-			<h3 class="h3">热门项目</h3>
+<!-- 			<h3 class="h3">热门项目</h3>
 			<HotList :hotList="hotList"></HotList>
 			<HotList :hotList="hotList"></HotList>
 			<h3 class="h3">项目优选</h3>
 			<HotList :hotList="hotList"></HotList>
-			<HotList :hotList="hotList" :boder="0"></HotList>
+			<HotList :hotList="hotList" :boder="0"></HotList> -->
 		</view>
 
 		<TabBar currentPath="/pages/home/home"></TabBar>
@@ -75,18 +59,20 @@
 
 	.home {
 		width: 100%;
-		height: 100%;
 		position: absolute;
 		background: #ccc;
-
+		top: 170rpx;
+		/*#ifdef H5*/
+		top: 88rpx;
+		/*#endif*/
+		bottom: 102rpx;
+		overflow: auto;
 		.bgc {
 			background: #fff;
 		}
 
 		.content {
 			margin-top: 18rpx;
-			padding-bottom: 100rpx;
-
 			.h3 {
 				padding: 10rpx;
 				background: #fff;

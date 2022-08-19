@@ -1,5 +1,16 @@
 import { ref } from 'vue'
 
+/**
+  * @Description:热门和优选
+  * 
+  * @author
+  * 
+  * @param 
+  * @return 
+  * 
+  * @createTime: 2022-08-19 09:30:50
+  * @name by 秦智鹏
+  */
 export default function useHotList() {
 	const hotList = ref([
 		{

@@ -20,8 +20,8 @@
 
 <template>
 	
-	<!-- <TopNav title="首页" /> -->
-	<TopNav>首页</TopNav>
+	<TopNav title="首页" />
+	<!-- <TopNav>首页</TopNav> -->
 	<view class="home">
 
 		<HomeSwiper></HomeSwiper>
@@ -47,15 +47,6 @@
 </template>
 
 <style lang="scss" scoped>
-	.nav-bar {
-		.nav-box {
-			width: 100%;
-			display: flex;
-			justify-content: center;
-			box-sizing: border-box;
-			align-items: center;
-		}
-	}
 
 	.home {
 		width: 100%;

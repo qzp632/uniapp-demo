@@ -2,7 +2,7 @@
 	defineProps({
 		title: {
 			type: String,
-			default: 'text'
+			default: undefined
 		}
 	})
 	
@@ -22,18 +22,20 @@
 			'paddingBottom': '0'
 		}
 		/*#endif*/
-		
-		if (phoneName === 'iPhone X') {
-			return {
-				'alignItems': 'flex-end',
-				'paddingBottom': '22rpx'
-			}
-		} else {
-			return {
-				'alignItems': 'flex-end',
-				'paddingBottom': '20rpx'
-			}
+		return {
+			'alignItems': 'flex-end'
 		}
+		// if (phoneName === 'iPhone X') {
+		// 	return {
+		// 		'alignItems': 'flex-end',
+		// 		'paddingBottom': '22rpx'
+		// 	}
+		// } else {
+		// 	return {
+		// 		'alignItems': 'flex-end',
+		// 		'paddingBottom': '20rpx'
+		// 	}
+		// }
 	}
 </script>
 
@@ -41,7 +43,8 @@
 	<uni-nav-bar class="nav-bar" :height="`${setPhoneHeight()}rpx`" fixed>
 		
 		<div class="nav-box" :style="navBoxStyle()">
-			<slot></slot>
+			<span v-if="title" class="t1">{{ title }}</span>
+			<slot v-else></slot>
 		</div>
 	</uni-nav-bar>
 
@@ -58,7 +61,13 @@
 			display: flex;
 			justify-content: center;
 			box-sizing: border-box;
-			font-size: 32rpx
+			font-size: 32rpx;
+			.t1 {
+				margin-bottom: 22rpx;
+				/*#ifdef H5*/
+				margin-bottom: 0;
+				/*#endif*/
+			}
 		}
 	}
 

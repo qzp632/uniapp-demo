@@ -16,6 +16,8 @@
 	const topNavHeight = ref(0)
 	const topImgHeight = ref(0)
 	
+	const imgUrl = ref("https://t7.baidu.com/it/u=2168645659,3174029352&fm=193&f=GIF")
+	
 	onMounted(async() => {
 		await nextTick()
 		let topN = uni.createSelectorQuery().select(".my-header");
@@ -92,7 +94,7 @@
 				</div>
 				/*#endif*/
 			</div>
-			<img class="img" src="https://t7.baidu.com/it/u=2168645659,3174029352&fm=193&f=GIF" alt="" srcset="">
+			<img class="img" :src="imgUrl" alt="" srcset="">
 		</div>
 	</TopNav>
 	
@@ -100,7 +102,7 @@
 
 	<div class="my-wrapper">
 		<div class="im1" :style="im1Style">
-			<img class="im1-ims" src="https://t7.baidu.com/it/u=2168645659,3174029352&fm=193&f=GIF" alt="" srcset="">
+			<img class="im1-ims" :src="imgUrl" alt="" srcset="">
 		
 		</div>
 		<!-- <div class="my-wrapper-d1" @click="loginOut">11111</div> -->

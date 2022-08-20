@@ -5,7 +5,7 @@
 			default: undefined
 		}
 	})
-	
+
 	const phoneName = uni.getSystemInfoSync().model
 	const setPhoneHeight = () => {
 		/*#ifdef H5*/
@@ -15,7 +15,6 @@
 	}
 
 	const navBoxStyle = () => {
-		
 		/*#ifdef H5*/
 		return {
 			'alignItems': 'center',
@@ -25,23 +24,11 @@
 		return {
 			'alignItems': 'flex-end'
 		}
-		// if (phoneName === 'iPhone X') {
-		// 	return {
-		// 		'alignItems': 'flex-end',
-		// 		'paddingBottom': '22rpx'
-		// 	}
-		// } else {
-		// 	return {
-		// 		'alignItems': 'flex-end',
-		// 		'paddingBottom': '20rpx'
-		// 	}
-		// }
 	}
 </script>
 
 <template>
 	<uni-nav-bar class="nav-bar" :border="false" :height="`${setPhoneHeight()}rpx`" fixed>
-		
 		<div class="nav-box" :style="navBoxStyle()">
 			<span v-if="title" class="t1">{{ title }}</span>
 			<slot v-else></slot>
@@ -53,6 +40,7 @@
 <style lang="scss" scoped>
 	.nav-bar {
 		position: relative;
+
 		.nav-box {
 			width: 100%;
 			height: 100%;
@@ -62,6 +50,7 @@
 			justify-content: center;
 			box-sizing: border-box;
 			font-size: 32rpx;
+
 			.t1 {
 				margin-bottom: 22rpx;
 				/*#ifdef H5*/
@@ -70,5 +59,4 @@
 			}
 		}
 	}
-
 </style>

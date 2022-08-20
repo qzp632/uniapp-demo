@@ -26,14 +26,14 @@
 
 		}).exec();
 		
-		setTimeout(() => {
-			let topImg = uni.createSelectorQuery().select(".img");
-			topImg.boundingClientRect(r => {
-				topImgHeight.value = r.height
-				console.log('r.height', r.height);
-			  // console.log("节点离页面顶部的距离为" + data);
-			}).exec();
-		}, 50)
+		// setTimeout(() => {
+		let topImg = uni.createSelectorQuery().select(".img");
+		topImg.boundingClientRect(r => {
+			topImgHeight.value = r.height
+			console.log('r.height', r.height);
+		  // console.log("节点离页面顶部的距离为" + data);
+		}).exec();
+		// }, 50)
 
 	})
 	
@@ -94,7 +94,8 @@
 				</div>
 				/*#endif*/
 			</div>
-			<img class="img" :src="imgUrl" alt="" srcset="">
+			<image class="img" :src="imgUrl"  mode=""></image>
+			<!-- <img class="img" :src="imgUrl" alt="" srcset=""> -->
 		</div>
 	</TopNav>
 	
@@ -102,8 +103,8 @@
 
 	<div class="my-wrapper">
 		<div class="im1" :style="im1Style">
-			<img class="im1-ims" :src="imgUrl" alt="" srcset="">
-		
+			<!-- <img class="im1-ims" :src="imgUrl" alt="" srcset=""> -->
+			<image class="im1-ims" :src="imgUrl"  mode=""></image>
 		</div>
 		<!-- <div class="my-wrapper-d1" @click="loginOut">11111</div> -->
 	</div>

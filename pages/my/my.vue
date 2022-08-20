@@ -161,6 +161,9 @@
 		position: absolute;
 		background: #ccc;
 		top: 170rpx;
+		/*#ifdef APP-PLUS*/
+		top: 168rpx;
+		/*#endif*/
 		/*#ifdef H5*/
 		top: 88rpx;
 		/*#endif*/

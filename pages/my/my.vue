@@ -19,16 +19,20 @@
 	onMounted(async() => {
 		await nextTick()
 		let topN = uni.createSelectorQuery().select(".my-header");
-		topN.boundingClientRect(data => {
+		topN.boundingClientRect( data => {
 			topNavHeight.value = data.height
-		  // console.log("节点离页面顶部的距离为" + data);
+
 		}).exec();
-		let topImg = uni.createSelectorQuery().select(".img");
-		topImg.boundingClientRect(data => {
-			console.log(data.height);
-			topImgHeight.value = data.height
-		  // console.log("节点离页面顶部的距离为" + data);
-		}).exec();
+		
+		setTimeout(() => {
+			let topImg = uni.createSelectorQuery().select(".img");
+			topImg.boundingClientRect(r => {
+				topImgHeight.value = r.height
+				console.log('r.height', r.height);
+			  // console.log("节点离页面顶部的距离为" + data);
+			}).exec();
+		}, 50)
+
 	})
 	
 	const im1Style = computed(() => {

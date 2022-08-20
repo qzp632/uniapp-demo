@@ -13,8 +13,8 @@
 		axios
 	} from '@/utils/axios.js'
 	
-	const topNavHeight = ref(null)
-	const topImgHeight = ref(null)
+	const topNavHeight = ref(0)
+	const topImgHeight = ref(0)
 	
 	onMounted(async() => {
 		await nextTick()
@@ -84,7 +84,7 @@
 
 	<div class="my-wrapper">
 		<div class="im1" :style="im1Style">
-			<img src="https://t7.baidu.com/it/u=2168645659,3174029352&fm=193&f=GIF" alt="" srcset="">
+			<img class="im1-ims" src="https://t7.baidu.com/it/u=2168645659,3174029352&fm=193&f=GIF" alt="" srcset="">
 		
 		</div>
 		<!-- <div class="my-wrapper-d1" @click="loginOut">11111</div> -->
@@ -153,7 +153,7 @@
 			position: relative;
 			overflow: hidden;
 			height: 400rpx;
-			image {
+			&-ims {
 				width: 100%;
 				position: absolute;
 				bottom: 0;

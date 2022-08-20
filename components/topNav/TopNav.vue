@@ -40,7 +40,7 @@
 </script>
 
 <template>
-	<uni-nav-bar class="nav-bar" :height="`${setPhoneHeight()}rpx`" fixed>
+	<uni-nav-bar class="nav-bar" :border="false" :height="`${setPhoneHeight()}rpx`" fixed>
 		
 		<div class="nav-box" :style="navBoxStyle()">
 			<span v-if="title" class="t1">{{ title }}</span>

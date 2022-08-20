@@ -72,8 +72,20 @@
 				/*#ifdef H5*/
 				<span class="left"></span>
 				/*#endif*/
+				
+				/*#ifdef APP-PLUS*/
+				<span class="left"></span>
+				/*#endif*/
+				
 				<span class="center">我的</span>
 				/*#ifdef H5*/
+				<div class="right">
+					<uni-icons class type="chatbubble-filled" size="22"></uni-icons>
+					<uni-icons class type="gear" size="22"></uni-icons>
+				</div>
+				/*#endif*/
+				
+				/*#ifdef APP-PLUS*/
 				<div class="right">
 					<uni-icons class type="chatbubble-filled" size="22"></uni-icons>
 					<uni-icons class type="gear" size="22"></uni-icons>

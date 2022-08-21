@@ -142,6 +142,10 @@
 			.left,
 			.right {
 				width: 100rpx;
+				margin-bottom: 22rpx;
+				/*#ifdef H5*/
+				margin-bottom: 0;
+				/*#endif*/
 			}
 
 			.center {

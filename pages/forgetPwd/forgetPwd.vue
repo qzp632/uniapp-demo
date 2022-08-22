@@ -69,9 +69,10 @@
 </script>
 
 <template>
+	<TopNav title="重置密码" />
 	<view class="forget-wrapper">
 		<!-- <TopNav title="重置密码" /> -->
-		<TopNav>重置密码</TopNav>
+		<!-- <TopNav>重置密码</TopNav> -->
 		<view class="title">下次一定要记住哦!</view>
 
 		<view class="example">
@@ -108,7 +109,7 @@
 
 <style lang="scss" scoped>
 	.forget-wrapper {
-		padding: 30rpx;
+		padding: 0 30rpx;
 		box-sizing: border-box;
 
 		.title {

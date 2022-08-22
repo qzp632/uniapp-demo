@@ -61,10 +61,11 @@
 </script>
 
 <template>
+	<TopNav title="注册" />
 	<view class="register-wrapper">
 		<!-- <TopNav title="注册" /> -->
 		
-		<TopNav>注册</TopNav>
+		<!-- <TopNav>注册</TopNav> -->
 		<view class="title">欢迎注册!</view>
 
 		<view class="example">
@@ -101,7 +102,7 @@
 
 <style lang="scss" scoped>
 	.register-wrapper {
-		padding: 30rpx;
+		padding: 0 30rpx;
 		box-sizing: border-box;
 
 		.title {

@@ -33,25 +33,34 @@
 	})
 
 	const selectBar = (item) => {
+		console.log(item.pagePath);
+		if (item.pagePath === '/pages/dream/dream') {
+			uni.redirectTo({
+				url:'/pages/login/login',
+				animationDuration: 0
+			})
+			
+			return
+		}
 		uni.redirectTo({
 			url:item.pagePath,
 			animationDuration: 0
 		})
 	}
 	
-	try {
-		const token = uni.getStorageSync('token');
-		console.log(token);
-		if (!token) {
-			uni.redirectTo({
-				url:'/pages/login/login',
-				animationDuration: 0
-			})
-		}
-	} catch (e) {
-		console.log(e);
-		// error
-	}
+	// try {
+	// 	const token = uni.getStorageSync('token');
+	// 	console.log(token);
+	// 	if (!token) {
+	// 		uni.redirectTo({
+	// 			url:'/pages/login/login',
+	// 			animationDuration: 0
+	// 		})
+	// 	}
+	// } catch (e) {
+	// 	console.log(e);
+	// 	// error
+	// }
 	
 	// const token = localStorage
 	// if(!token) {
@@ -69,7 +78,7 @@
 			<image :src="currentPath === item.pagePath ? item.selectedIconPath : item.url" class="image" mode="aspectFill" />
 			<text class="text">{{ item.text }}</text>
 		</view>
-
+		
 	</view>
 </template>
 

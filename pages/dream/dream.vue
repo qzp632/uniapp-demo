@@ -110,8 +110,8 @@
 </script>
 
 <template>
-	<!-- <TopNav title="兴趣" /> -->
-	<TopNav>兴趣</TopNav>
+	<TopNav title="兴趣" />
+	<!-- <TopNav>兴趣</TopNav> -->
 	<div>dream</div>
 	<button @click="add">加亮度</button>
 	<button @click="jian">减亮度</button>

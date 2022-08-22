@@ -42,9 +42,10 @@
 </script>
 
 <template>
+	<TopNav title="登录" />
 	<view class="login-wrapper">
 		<!-- <TopNav title="登录" /> -->
-		<topNav>登录</topNav>
+		
 		<view class="title">欢迎回来!</view>
 
 		<view class="example">

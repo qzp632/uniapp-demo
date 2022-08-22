@@ -62,8 +62,9 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		/*#ifdef H5*/
 		padding: 15px 0;
+		/*#ifdef MP*/
+		padding: 0;
 		/*#endif*/
 		box-sizing: border-box;
 
@@ -75,8 +76,9 @@
 		flex-direction: row;
 		align-items: center;
 		justify-content: center;
-		/*#ifdef H5*/
 		padding: 15px 0;
+		/*#ifdef MP*/
+		padding: 0;
 		/*#endif*/
 		background: #fff;
 		box-sizing: border-box;

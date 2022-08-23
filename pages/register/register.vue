@@ -29,7 +29,7 @@
 			}
 		})
 
-		setStorage('token', result.content)
+		// setStorage('token', result.content)
 
 		redirectTo('/pages/home/home')
 	}

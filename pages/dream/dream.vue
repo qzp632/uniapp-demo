@@ -9,6 +9,8 @@
 	const num = ref(0)
 	const add = () => {
 
+		// document.cookie = "token="
+
 		num.value += 0.01
 		// uni.setScreenBrightness({
 		// 	value: num.value,

@@ -37,6 +37,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/basicInfo/basicInfo",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationStyle": "custom",

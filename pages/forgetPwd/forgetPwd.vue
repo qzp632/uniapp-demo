@@ -16,8 +16,6 @@
 		rules
 	} = useForgetPwd()
 	
-
-
 	const submit = async (refEl) => {
 
 		await formEl(refEl)
@@ -36,7 +34,7 @@
 			duration: 2000
 		});
 
-		setStorage('token', result.content)
+		// setStorage('token', result.content)
 
 		redirectTo('/pages/home/home')
 	}

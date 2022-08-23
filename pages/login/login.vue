@@ -17,6 +17,7 @@
 	} = useLogin()
 
 	const submit = async (refEl) => {
+
 		await formEl(refEl)
 
 		const result = await axios.post({
@@ -26,10 +27,10 @@
 				"telephone": valiFormData.telephone //手机号
 			}
 		})
+		
+		const path = uni.getStorageSync('path') || '/pages/home/home'
 
-		setStorage('token', result.content)
-
-		redirectTo('/pages/home/home')
+		redirectTo(path)
 	}
 
 	const register = () => {
@@ -42,7 +43,7 @@
 </script>
 
 <template>
-	<TopNav title="登录" />
+	<TopNav :home="true" title="登录" />
 	<view class="login-wrapper">
 		<!-- <TopNav title="登录" /> -->
 		

@@ -1,5 +1,11 @@
 <script setup>
-	
+	import {
+		axios,
+	} from '@/utils/axios.js'
+	import {
+		setStorage,
+		redirectTo
+	} from '@/utils/index.js'
 	const tabList = [{
 			"text": "首页",
 			"pagePath": "/pages/home/home",
@@ -32,43 +38,21 @@
 		}
 	})
 
-	const selectBar = (item) => {
-		console.log(item.pagePath);
-		if (item.pagePath === '/pages/dream/dream') {
-			uni.redirectTo({
-				url:'/pages/login/login',
-				animationDuration: 0
-			})
-			
-			return
+	const selectBar = async(item) => {
+		
+		const pathList = ['/pages/dream/dream', '/pages/my/my']
+		
+		if (pathList.indexOf(item.pagePath) > -1 ) {
+			setStorage('path', item.pagePath)
+			const { content } = await axios.islogin()
+			setStorage('phone', content)
 		}
+
 		uni.redirectTo({
 			url:item.pagePath,
 			animationDuration: 0
 		})
 	}
-	
-	// try {
-	// 	const token = uni.getStorageSync('token');
-	// 	console.log(token);
-	// 	if (!token) {
-	// 		uni.redirectTo({
-	// 			url:'/pages/login/login',
-	// 			animationDuration: 0
-	// 		})
-	// 	}
-	// } catch (e) {
-	// 	console.log(e);
-	// 	// error
-	// }
-	
-	// const token = localStorage
-	// if(!token) {
-	// 	uni.redirectTo({
-	// 		url:'/pages/login/login',
-	// 		animationDuration: 0
-	// 	})
-	// }
 	
 </script>
 

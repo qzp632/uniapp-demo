@@ -18,8 +18,14 @@
 	})
 
 	const {
-		iconList
+		iconList,
+		getItem
 	} = useMyContent()
+	
+	const sd = () => {
+		console.log(1111111111);
+	}
+	
 </script>
 
 <template>
@@ -46,10 +52,10 @@
 		</div>
 
 		<div class="my-wrapper-c2">
-			<MyItem :height="150" v-for="(item, index) in iconList" :key="index" height="150">
+			<div class="my-wrapper-c2-item" style="height:150rpx" @click.stop.prevent="getItem(item)" v-for="(item, index) in iconList" :key="index">
 				<uni-icons class="icon" :type="item.icon" :size="25" color="orangered" />
 				<text class="text">{{ item.text }}</text>
-			</MyItem>
+			</div>
 		</div>
 
 		<div class="my-wrapper-c3">
@@ -113,7 +119,13 @@
 		}
 
 		&-c2 {
-
+			.my-wrapper-c2-item {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+			}
 			.icon,
 			.text {
 				font-size: 26rpx;

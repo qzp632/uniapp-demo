@@ -29,7 +29,7 @@
 <template>
 	<swiper class="swiper" circular :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval"
 		:duration="duration">
-		<swiper-item class="item" v-for="(item, index) in swiperList">
+		<swiper-item class="item" v-for="(item, index) in swiperList" :key="index">
 			<image class="img" :src="item" mode=""></image>
 		</swiper-item>
 	</swiper>

@@ -30,7 +30,7 @@
 	} = getIcon(['navigate', 'location', 'person-filled', 'chat-filled', 'heart-filled', 'star-filled', 'gear'])
 	
 	const getBasicInfo = () => {
-		navigateTo('/pages/basicInfo/basicInfo')
+		navigateTo('/pages/my/basicInfo/basicInfo')
 	}
 	
 	const loginOut = () => {

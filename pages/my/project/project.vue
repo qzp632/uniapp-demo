@@ -1,7 +1,7 @@
 <script setup>
 	import { ref, effect } from 'vue'
 	import {
-		redirectTo
+		navigateTo
 	} from '@/utils/index.js'
 	import TopNav from '@/components/topNav/TopNav.vue'
 
@@ -14,11 +14,10 @@
 	// 	]
 	// })
 	const pushProject = () => {
-		redirectTo('/pages/my/project/pushProject/pushProject')
+		navigateTo('/pages/my/project/pushProject/pushProject')
 	}
 
 </script>
-
 <template>
 
 	<TopNav :back="true" title="我的项目" />

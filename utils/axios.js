@@ -1,6 +1,6 @@
 import cookies from 'weapp-cookie'
 
-let baseUrl = 'http://120.48.123.236:8080'
+let baseUrl = 'http://yiqima.vip'
 
 /*#ifdef H5*/
 baseUrl = '/api'
@@ -22,7 +22,7 @@ export const axios = {
 	islogin: () => {
 		return new Promise((resolve, reject) => {
 			uni.request({
-				url: baseUrl + '/login/islogin' || '',
+				url: baseUrl + '/user/islogin' || '',
 				method: 'GET',
 				fail: (err) => {
 					console.log(err);
@@ -32,7 +32,7 @@ export const axios = {
 						duration: 2000
 					});
 					uni.redirectTo({
-						url:'/pages/login/login',
+						url: '/pages/login/login',
 						animationDuration: 0
 					})
 				},
@@ -40,15 +40,15 @@ export const axios = {
 					if (res.data.code == 200) {
 						return resolve(res.data)
 					} else {
+						uni.redirectTo({
+							url: '/pages/login/login',
+							animationDuration: 0
+						})
 						uni.showToast({
 							icon: 'error',
 							title: res.data.message || res.data.msg,
 							duration: 2000
 						});
-						uni.redirectTo({
-							url:'/pages/login/login',
-							animationDuration: 0
-						})
 					}
 				}
 			})
@@ -109,4 +109,27 @@ export const axios = {
 			})
 		})
 	},
+	upload: (options = {}) => {
+		return new Promise((resolve, reject) => {
+			uni.uploadFile({
+				url: baseUrl + options.url || '',
+				filePath: options.filePath || '',
+				name: 'file',
+				formData: options.formData || {},
+				fail: (err) => {
+					uni.showToast({
+						icon: 'error',
+						title: err.message,
+						duration: 2000
+					});
+				},
+				success: (uploadFileRes) => {
+					resolve(uploadFileRes.data)
+					console.log(uploadFileRes.data);
+				}
+			});
+			
+		})
+	}
+	
 }

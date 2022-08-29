@@ -21,7 +21,7 @@
 		await formEl(refEl)
 
 		const result = await axios.post({
-			url: '/login/setpwd', //仅为示例，并非真实接口地址。
+			url: '/user/setpwd', //仅为示例，并非真实接口地址。
 			data: {
 				"code": valiFormData.code, //验证码
 				"password": valiFormData.password, //密码
@@ -42,7 +42,7 @@
 	const getCode = async () => {
 
 		const result = await axios.post({
-			url: '/login/sendMsg', //仅为示例，并非真实接口地址。
+			url: '/user/sendMsg', //仅为示例，并非真实接口地址。
 			data: {
 				"tel": valiFormData.telephone //手机号
 			},

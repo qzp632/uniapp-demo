@@ -2,7 +2,7 @@
 	import {
 		redirectTo
 	} from '@/utils/index.js'
-	
+
 	defineProps({
 		title: {
 			type: String,
@@ -10,11 +10,11 @@
 		},
 		home: {
 			type: Boolean,
-			default: false	
+			default: false
 		},
 		back: {
 			type: Boolean,
-			default: false	
+			default: false
 		}
 	})
 
@@ -37,30 +37,28 @@
 			'alignItems': 'flex-end'
 		}
 	}
-	
+
 	const goHome = () => {
 		redirectTo('/pages/home/home')
 	}
-	
+
 	const goBack = () => {
 		uni.navigateBack({
-			delta:1
+			delta: 1
 		});
 	}
-	
-
 </script>
 
 <template>
 	<uni-nav-bar class="nav-bar" :border="false" shadow :height="`${setPhoneHeight()}px`" fixed>
 		<div class="nav-box" :style="navBoxStyle()">
-			
+
 			<span v-if="title" class="t1">{{ title }}</span>
 			<slot v-else></slot>
-			
-			<uni-icons v-if="home" class="home" type="home-filled" :size="25"  @click="goHome" />
-			
-			<uni-icons v-if="back" class="home" type="back" :size="25"  @click="goBack" />
+
+			<uni-icons v-if="home" class="home" type="home-filled" :size="25" @click="goHome" />
+
+			<uni-icons v-if="back" class="home" type="back" :size="25" @click="goBack" />
 		</div>
 	</uni-nav-bar>
 
@@ -79,6 +77,7 @@
 			justify-content: center;
 			box-sizing: border-box;
 			font-size: 32rpx;
+
 			.home {
 				position: absolute;
 				left: 10rpx;

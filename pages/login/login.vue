@@ -21,7 +21,7 @@
 		await formEl(refEl)
 
 		const result = await axios.post({
-			url: '/login/login', //仅为示例，并非真实接口地址。
+			url: '/user/login', //仅为示例，并非真实接口地址。
 			data: {
 				"password": valiFormData.password, //密码
 				"telephone": valiFormData.telephone //手机号

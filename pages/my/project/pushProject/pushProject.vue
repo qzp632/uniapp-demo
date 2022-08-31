@@ -10,7 +10,12 @@
 	import PushThree from './PushProjectComponent/PushThree.vue'
 
 	const active = ref(0)
-	const currentRef = ref(null)
+	const currentRef0 = ref(null)
+	const currentRef1 = ref(null)
+	const currentRef2 = ref(null)
+	const elArs = ref([])
+	
+	const refArs = [ currentRef0, currentRef1]
 		
 	const list1 = ref([{
 		title: '基本信息'
@@ -21,12 +26,21 @@
 	}])
 	
 	const nextPush = async () => {
-		const el = await currentRef.value.getEl();
+
+		const el = await refArs[active.value].value.getEl();
+		elArs.value.push(el)
 		if (el) active.value++
 	}
 	
 	const prevPush = () => {
 		active.value--
+	}
+	
+	const result = async () => {
+		// const el = await currentRef2.value.getEl();
+		// elArs.value.push(el)
+		
+		console.log(elArs.value);
 	}
 	
 </script>
@@ -38,14 +52,17 @@
 	<div class="push-wrapper">
 		
 		<uni-steps style="margin: 20rpx 0 50rpx;" :options="list1" :active="active" />
+<!-- 		<PushTow ref="currentRef1"></PushTow>
+		<button class="btn" type="primary" @click="nextPush">下一步</button> -->
 
 		<div v-show="active == 0" class="topbox">
-			<PushOne ref="currentRef"></PushOne>
+
+			<PushOne ref="currentRef0"></PushOne>
 			<button class="btn" type="primary" @click="nextPush()">下一步</button>
 		</div>
 	
 		<div v-show="active == 1" class="topbox">
-			<PushTow ref="currentEl"></PushTow>
+			<PushTow ref="currentRef1"></PushTow>
 			<div class="push-btn">
 				<button class="btn" type="primary" @click="prevPush">上一步</button>
 				<button class="btn" type="primary" @click="nextPush">下一步</button>
@@ -54,10 +71,10 @@
 		</div>
 		
 		<div v-show="active == 2" class="topbox">
-			<PushThree ref="currentEl"></PushThree>
+			<PushThree ref="currentRef2"></PushThree>
 			<div class="push-btn">
 				<button class="btn" type="primary" @click="prevPush">上一步</button>
-				<button class="btn" type="primary" @click="nextPush">确认</button>
+				<button class="btn" type="primary" @click="result">确认</button>
 			</div>
 		</div>
 	</div>
@@ -73,6 +90,13 @@
 	.push-wrapper ::v-deep.is-textarea  {
 		border: 2rpx solid #DCDFE6;
 		border-radius: 8rpx;
+	}
+	
+	.push-wrapper ::v-deep.push-wrapper-three {
+		.uni-forms-item {
+			margin-bottom: 36rpx;
+		}
+		
 	}
 	
 	.push-wrapper {

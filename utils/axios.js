@@ -125,7 +125,7 @@ export const axios = {
 				},
 				success: (uploadFileRes) => {
 					resolve(uploadFileRes.data)
-					console.log(uploadFileRes.data);
+					// console.log(uploadFileRes.data);
 				}
 			});
 			

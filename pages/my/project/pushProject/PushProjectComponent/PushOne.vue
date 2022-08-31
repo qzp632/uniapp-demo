@@ -1,6 +1,7 @@
 <script setup>
-	import { ref } from 'vue'
-	import usePushOne from './usePushOne/use-pushOne.js'
+	import { ref, effect } from 'vue'
+	import usePushOne from './usePushKey/use-pushOne.js'
+	
 	import {
 		formEl
 	} from '@/utils/index.js'
@@ -15,6 +16,14 @@
 		financeStageArray,
 		rules
 	} = usePushOne()
+	
+	// const cityList = cityData.data
+	
+	// const provinces = cityList.map((item, index) => item.name)
+	
+	// const 
+	
+	// console.log(provinces);
 	
 	const getEl = async () => {
 		return await formEl(valiForm.value)	
@@ -34,7 +43,7 @@
 	}
 </script>
 <template>
-
+<!-- :rules="rules" -->
 	<uni-forms class="push-wrapper-forms" :rules="rules" ref="valiForm" :modelValue="baseFormData">
 
 		<uni-forms-item label="项目名称" :labelWidth="80" name="projectName">

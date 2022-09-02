@@ -19,25 +19,25 @@ export default function usePushTow() {
 		baseFormData
 	} = reactive({
 		baseFormData: {
-			imageValues: [],
-			licenses: [],
+			logos: [],
+			// licenses: [],
 			certifications: []
 		}
 	})
 
 	const rules = {
-		imageValues: {
+		logos: {
 			rules: [{
 				required: true,
 				errorMessage: '不能为空'
 			}]
 		},
-		licenses: {
-			rules: [{
-				required: true,
-				errorMessage: '不能为空'
-			}]
-		},
+		// licenses: {
+		// 	rules: [{
+		// 		required: true,
+		// 		errorMessage: '不能为空'
+		// 	}]
+		// },
 		certifications: {
 			rules: [{
 				required: true,
@@ -75,13 +75,18 @@ export default function usePushTow() {
 				
 				tempFilePaths.forEach(async path => {
 					
-						await axios.upload({
+						const load = await axios.upload({
 							url: '/yqbfile/upload',
 							filePath: path
 						})
 						
+						console.log(load);
+						
 						temp.push(path)
-						baseFormData[key].push(path)
+						baseFormData[key].push({
+							url: path,
+							name: load
+						})
 
 						if (temp.length === tempFilePaths.length) {
 							uni.hideLoading();

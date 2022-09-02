@@ -40,29 +40,29 @@
 
 	<uni-forms class="push-wrapper-forms" :rules="rules" labelPosition="top" ref="valiForm" :modelValue="baseFormData">
 
-			<uni-forms-item label="上传项目logo" required :labelWidth="140" name="imageValues">
+			<uni-forms-item label="上传项目logo" required :labelWidth="140" name="logos">
 				<div class="bottom-line bottom-line1">
 					<image class="push-img" 
-						v-for="(item, index) in baseFormData.imageValues"
+						v-for="(item, index) in baseFormData.logos"
 						:key="index"
-						:src="item"
-						@click="getPopup(item, index, 'imageValues')"
+						:src="item.url"
+						@click="getPopup(item.url, index, 'logos')"
 					></image>
-					<div v-if="baseFormData.imageValues.length < 1" class="upload-img" @click="setImg('imageValues', 1)">
+					<div v-if="baseFormData.logos.length < 1" class="upload-img" @click="setImg('logos', 1)">
 						<div class="heng"></div>
 						<div class="shu"></div>
 					</div>
 				</div>
 			</uni-forms-item>
 
-			<uni-forms-item label="上传营业执照" required :labelWidth="140" name="licenses">
+<!-- 			<uni-forms-item label="上传营业执照" required :labelWidth="140" name="licenses">
 
 				<div class="bottom-line bottom-line1">
 					<image class="push-img" 
 						v-for="(item, index) in baseFormData.licenses"
 						:key="index"
-						:src="item"
-						@click="getPopup(item, index, 'licenses')"
+						:src="item.url"
+						@click="getPopup(item.url, index, 'licenses')"
 					></image>
 					<div v-if="baseFormData.licenses.length < 9" class="upload-img" @click="setImg('licenses')">
 						<div class="heng"></div>
@@ -70,16 +70,16 @@
 					</div>
 				</div>
 				
-			</uni-forms-item>
+			</uni-forms-item> -->
 
-			<uni-forms-item label="上传资质" required :labelWidth="140" name="certifications">
+			<uni-forms-item label="上传资质证书" required :labelWidth="140" name="certifications">
 
 				<div class="bottom-line bottom-line1">
 					<image class="push-img" 
 						v-for="(item, index) in baseFormData.certifications"
 						:key="index"
-						:src="item"
-						@click="getPopup(item, index, 'certifications')"
+						:src="item.url"
+						@click="getPopup(item.url, index, 'certifications')"
 					></image>
 					<div v-if="baseFormData.certifications.length < 9" class="upload-img" @click="setImg('certifications')">
 						<div class="heng"></div>
@@ -137,8 +137,11 @@
 	}
 
 	.push-img, .upload-img {
-		width: 190rpx;
-		height: 190rpx;
+		// width: 33.3%;
+		// height: 0;
+		// padding-top: 33.3%;
+		width: 200rpx;
+		height: 200rpx;
 		margin: 20rpx 10rpx ;
 		background: #999;
 	}

@@ -94,6 +94,7 @@ export const options = {
 export let str = ''
 
 export const setStr = (newStr) => {
+	str = ''
 	str = newStr
 }
 

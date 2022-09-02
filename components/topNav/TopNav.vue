@@ -15,8 +15,15 @@
 		back: {
 			type: Boolean,
 			default: false
-		}
+		},
+		close: {
+			type: Boolean,
+			default: false
+		},
 	})
+	
+	const emit = defineEmits(['onClose'])
+
 
 	const phoneName = uni.getSystemInfoSync().model
 	const setPhoneHeight = () => {
@@ -47,6 +54,11 @@
 			delta: 1
 		});
 	}
+	
+	const onCloseed = () => {
+		emit('onClose')
+		// console.log(emit);
+	}
 </script>
 
 <template>
@@ -59,6 +71,9 @@
 			<uni-icons v-if="home" class="home" type="home-filled" :size="25" @click="goHome" />
 
 			<uni-icons v-if="back" class="home" type="back" :size="25" @click="goBack" />
+			
+			<uni-icons v-if="close" class="home" type="back" :size="25" @click="onCloseed" />
+			
 		</div>
 	</uni-nav-bar>
 

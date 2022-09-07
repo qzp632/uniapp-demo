@@ -28,6 +28,8 @@
 			}
 		})
 		
+		console.log(result.content);
+		setStorage('user-id', result.content.id)
 		const path = uni.getStorageSync('path') || '/pages/home/home'
 
 		redirectTo(path)

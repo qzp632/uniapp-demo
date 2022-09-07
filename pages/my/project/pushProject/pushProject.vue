@@ -4,6 +4,9 @@
 		effect,
 		reactive
 	} from 'vue'
+	import {
+		axios
+	} from '@/utils/axios.js'
 	import TopNav from '@/components/topNav/TopNav.vue'
 	import PushOne from './PushProjectComponent/PushOne.vue'
 	import PushTow from './PushProjectComponent/PushTow.vue'
@@ -14,7 +17,7 @@
 	const currentRef0 = ref(null)
 	const currentRef1 = ref(null)
 	const currentRef2 = ref(null)
-	const elArs = ref([])
+	const elObj = ref({})
 	const isLabel = ref(false)
 	
 	const refArs = [ currentRef0, currentRef1]
@@ -30,12 +33,10 @@
 	const projectLabels = ref([])
 	
 	const nextPush = async () => {
-
+		
 		const el = await refArs[active.value].value.getEl();
-		let elStr = JSON.stringify(el)
-		if (elArs.value.indexOf(elStr) < 0) {
-			elArs.value.push(elStr)
-		}
+		elObj.value[`el${active.value}`] = el
+		
 		active.value++
 	}
 	
@@ -46,19 +47,40 @@
 	const result = async () => {
 		const newEls = []
 		const el = await currentRef2.value.ars;
-		// console.log(el);
-		let elStr = JSON.stringify(el)
-		if (elArs.value.indexOf(elStr) < 0) {
-			elArs.value.push(elStr)
+		elObj.value['el2']= el
+		
+		const { el0, el1, el2 } = elObj.value
+		console.log(el0);
+		const { projectName, cityObj, location, scale, financeStage, projectlabel, projectInfo } = el0
+		const { logos, certifications, otherPics } = el1
+
+		const params = {
+			projectName, 
+			"province": cityObj && cityObj.codes && cityObj.codes[0],
+			"city": cityObj && cityObj.codes && cityObj.codes[1],
+			location,
+			scale,
+			financeStage,
+			"projectlabel": projectlabel && projectlabel?.map(item => item.txt).join(';'),
+			projectInfo,
+			"logoPath": logos && logos?.map(item => item.name).join(';'),
+			"certification": certifications && certifications?.map(item => item.name).join(';'),
+			"otherPic": otherPics && otherPics?.map(item => item.name).join(';'),
+			"projectResourceInfo": [],
+			"publisher": uni.getStorageSync('user-id')
 		}
 		
-		elArs.value.forEach((item, el) => {
-			newEls.push(JSON.parse(item))
-		})
+		// const result = await axios.post({
+		// 	url: '/project/add', //仅为示例，并非真实接口地址。
+		// 	data: params
+		// })
 		
-		console.log('newEls[000]', newEls[0]);
-		console.log('newEls[1]', newEls[1]);
-		console.log('newEls[length]', newEls[newEls.length-1]);
+		// uni.$emit('getMyP')
+		
+		// uni.navigateBack({
+		// 	delta: 1
+		// });
+		// console.log(result);
 		
 	}
 	

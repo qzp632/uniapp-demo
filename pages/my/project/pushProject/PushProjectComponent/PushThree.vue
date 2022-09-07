@@ -39,8 +39,6 @@
 		multiIndex: [0, 0, 0],
 		multiArray: [provinces, citys, countys]
 	})
-	
-
 
 	const rules = {
 		aaObj: {
@@ -140,23 +138,30 @@
 		let ars = e.target.dataset.ars
 		baseFormData[key] = ars[index]
 	}
-	
-	// const getEl = async () => {
-	// 	// baseFormData.aa = {}
-	// 	// baseFormData.bb = ''
-	// 	// baseFormData.cc = ''
-	// 	// baseFormData.dd = ''
-	// 	// baseFormData.ee1 = ''
-	// 	// baseFormData.ee2 = ''
-	// 	// baseFormData.ff = ''
-	// 	// baseFormData.gg = ''
-	// 	return await formEl(valiForm.value)	
-	// }
 
 	const add = async () => {
 		const el = await formEl(valiForm.value)
+		const sum = ars.value.length && ars.value.reduce(function(prev, cur) {
+		    return (+cur.ff) + prev;
+		}, 0);
+		if (el.ff > 100) {
+			uni.showToast({
+				title:'比例不能超过100%'
+			})
+			return false
+		}
+		
+
+		if (((+el.ff) + sum )> 100) {
+			uni.showToast({
+				title:'比例不能超过100%'
+			})
+			return false
+		}
+		
 		ars.value.push(el)
 		baseFormData.aa = ''
+		baseFormData.aaObj.str = ''
 		baseFormData.bb = ''
 		baseFormData.cc = ''
 		baseFormData.dd = ''
@@ -184,53 +189,36 @@
 					:value="multiIndex" :range="multiArray">
 					<div class="bottom-line">
 						<span class="text" v-if="baseFormData.aaObj.str">{{ baseFormData.aaObj.str }}</span>
-						<span class="text desc" v-else>请选择城市</span>
+						<span class="text desc" v-else>选择资源分类</span>
 						<uni-icons class="icon" type="bottom" color="#DCDFE6" size="22"></uni-icons>
 					</div>
 				</picker>
 				
-<!-- 				<picker @change="pickerChange" :range="financeStageArray" data-key="aa" :data-ars="financeStageArray">
-					<div class="bottom-line">
-						<span class="text" v-if="baseFormData.aa">{{ baseFormData.aa }}</span>
-						<span class="text desc" v-else>请选择资源分类</span>
-						<uni-icons class="icon" type="bottom" color="#DCDFE6" size="22"></uni-icons>
-					</div>
-				</picker> -->
 			</uni-forms-item>
 			
-<!-- 			<uni-forms-item label="城市" :labelWidth="80" name="cityStr">
-				<picker mode="multiSelector" @change="bindPickerChange" @columnchange="bindMultiPickerColumnChange"
-					:value="multiIndex" :range="multiArray">
-					<div class="bottom-line">
-						<span class="text" v-if="baseFormData.cityStr">{{ baseFormData.cityStr }}</span>
-						<span class="text desc" v-else>请选择城市</span>
-						<uni-icons class="icon" type="bottom" color="#DCDFE6" size="22"></uni-icons>
-					</div>
-				</picker>
-			</uni-forms-item> -->
 
 			<uni-forms-item label="资源自定义名称" :labelWidth="140" name="bb">
 				<uni-easyinput v-model="baseFormData.bb" placeholder="资源自定义名称" />
 			</uni-forms-item>
 
 			<uni-forms-item label="所需数量" :labelWidth="140" name="cc">
-				<uni-easyinput v-model="baseFormData.cc" placeholder="所需数量" />
+				<uni-easyinput type="number" v-model="baseFormData.cc" placeholder="所需数量" />
 			</uni-forms-item>
 
 			<uni-forms-item label="规模" :labelWidth="140" name="dd">
-				<uni-easyinput v-model="baseFormData.dd" placeholder="规模" />
+				<uni-easyinput type="number" v-model="baseFormData.dd" placeholder="规模" />
 			</uni-forms-item>
 
 			<uni-forms-item label="最小数量" :labelWidth="140" name="ee1">
-				<uni-easyinput v-model="baseFormData.ee1" placeholder="最小数量/最大数量" />
+				<uni-easyinput type="number" v-model="baseFormData.ee1" placeholder="最小数量/最大数量" />
 			</uni-forms-item>
 			
 			<uni-forms-item label="最大数量" :labelWidth="140" name="ee2">
-				<uni-easyinput v-model="baseFormData.ee2" placeholder="最小数量/最大数量" />
+				<uni-easyinput type="number" v-model="baseFormData.ee2" placeholder="最小数量/最大数量" />
 			</uni-forms-item>
 			
 			<uni-forms-item label="所在比例(%)" :labelWidth="140" name="ff">
-				<uni-easyinput v-model="baseFormData.ff" placeholder="所在比例" />
+				<uni-easyinput type="number" v-model="baseFormData.ff" placeholder="所在比例" />
 			</uni-forms-item>
 
 			<uni-forms-item label="回报加入方式" :labelWidth="140" name="gg">
@@ -243,14 +231,39 @@
 
 	<uni-section title="已添加资源列表" type="line">
 		<uni-collapse accordion>
-			<uni-collapse-item v-for="(item, index) in ars" :key="index" :title="item.bb" :show-animation="true">
-				<div>{{ item.aaObj.str }}</div>
-				<div>{{ item.cc }}</div>
-				<div>{{ item.dd }}</div>
-				<div>{{ item.ee1 }}</div>
-				<div>{{ item.ee2 }}</div>
-				<div>{{ item.ff }}</div>
-				<div>{{ item.gg }}</div>
+			<uni-collapse-item class="bg" v-for="(item, index) in ars" :key="index" :title="item.bb" :show-animation="true">
+				<div class="collItem-div">
+					<span class="cot">分类</span>
+					<span>{{ item.aaObj.str }}</span>
+				</div>
+
+				<div class="collItem">
+
+					<div class="collItem-div">
+						<span class="cot">规模</span>
+						<span>{{ item.cc }}</span>
+					</div>
+					<div class="collItem-div">
+						<span class="cot">数量</span>
+						<span>{{ item.dd }}</span>
+					</div>
+					<div class="collItem-div">
+						<span class="cot">最大</span>
+						<span>{{ item.ee1 }}</span>
+					</div>
+					<div class="collItem-div">
+						<span class="cot">最小</span>
+						<span>{{ item.ee2 }}</span>
+					</div>
+					<div class="collItem-div">
+						<span class="cot">比例</span>
+						<span>{{ item.ff }}</span>
+					</div>
+					<div class="collItem-div">
+						<span class="cot">方式</span>
+						<span>{{ item.gg }}</span>
+					</div>
+				</div>
 			</uni-collapse-item>
 		</uni-collapse>
 	</uni-section>
@@ -278,6 +291,25 @@
 
 		.icon {
 			margin-right: 20rpx;
+		}
+	}
+	.bg {
+		border: 2rpx solid #DCDFE6;
+	}
+	
+	.collItem {
+		width: 100%;
+		// background: saddlebrown;
+		display: flex;
+	}
+	.collItem-div {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		background: #DCDFE6;
+		margin-top: 5rpx;
+		.cot {
+			font-size: 30rpx;
 		}
 	}
 </style>

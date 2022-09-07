@@ -37,7 +37,7 @@
 </script>
 <template>
 
-
+<!-- :rules="rules" -->
 	<uni-forms class="push-wrapper-forms" :rules="rules" labelPosition="top" ref="valiForm" :modelValue="baseFormData">
 
 			<uni-forms-item label="上传项目logo" required :labelWidth="140" name="logos">
@@ -55,23 +55,6 @@
 				</div>
 			</uni-forms-item>
 
-<!-- 			<uni-forms-item label="上传营业执照" required :labelWidth="140" name="licenses">
-
-				<div class="bottom-line bottom-line1">
-					<image class="push-img" 
-						v-for="(item, index) in baseFormData.licenses"
-						:key="index"
-						:src="item.url"
-						@click="getPopup(item.url, index, 'licenses')"
-					></image>
-					<div v-if="baseFormData.licenses.length < 9" class="upload-img" @click="setImg('licenses')">
-						<div class="heng"></div>
-						<div class="shu"></div>
-					</div>
-				</div>
-				
-			</uni-forms-item> -->
-
 			<uni-forms-item label="上传资质证书" required :labelWidth="140" name="certifications">
 
 				<div class="bottom-line bottom-line1">
@@ -82,6 +65,22 @@
 						@click="getPopup(item.url, index, 'certifications')"
 					></image>
 					<div v-if="baseFormData.certifications.length < 9" class="upload-img" @click="setImg('certifications')">
+						<div class="heng"></div>
+						<div class="shu"></div>
+					</div>
+				</div>
+			</uni-forms-item>
+			
+			<uni-forms-item label="其他图文信息" required :labelWidth="140" name="otherPics">
+			
+				<div class="bottom-line bottom-line1">
+					<image class="push-img" 
+						v-for="(item, index) in baseFormData.otherPics"
+						:key="index"
+						:src="item.url"
+						@click="getPopup(item.url, index, 'otherPics')"
+					></image>
+					<div v-if="baseFormData.otherPics.length < 9" class="upload-img" @click="setImg('otherPics')">
 						<div class="heng"></div>
 						<div class="shu"></div>
 					</div>

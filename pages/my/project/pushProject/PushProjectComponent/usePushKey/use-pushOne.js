@@ -1,4 +1,5 @@
 import {
+	effect,
 	reactive,
 	ref
 } from 'vue'
@@ -9,36 +10,36 @@ import {
 	setStr,
 	navigateTo
 } from '@/utils/index.js'
-import cityData from '@/utils/cityList.json'
+
+import {
+	getProvinceCity
+} from '@/utils/common.js'
+
+import useCityHooks from '@/commonHooks/use-cityHooks.js'
 export default function usePushOne() {
 	const valiForm = ref(null)
-	
-	const cityList = cityData.data
-	
-	// console.log(cityList);
-	
-	const provinces = cityList.map((item, index) => item.name)
-	
-	const citys = cityList[0].pchilds.map((item, index) => item.name)
-	
-	const countys = cityList[0].pchilds[0].cchilds.map((item, index) => item.name)
-	
+	const multiArray = ref([])
+	const cityList = ref([])
+	const provinces = ref([])
+	const citys = ref([])
+	const countys = ref([])
+
+
 	const {
 		baseFormData,
 		multiIndex,
-		multiArray
+		// multiArray
 	} = reactive({
-		multiIndex: [0, 0, 0],
-		multiArray: [
-			provinces,
-			citys,
-			countys
-		],
+		multiIndex: [0, 0],
+		// multiArray: [],
 		baseFormData: {
 			projectName: '',
 			cityObj: {},
-			location: '',
+			loacation: '',
 			attendance: '',
+			company: '',
+			companObj: {},
+			// companyid: '上海xxxx科技有限公司',
 			scale: '',
 			financeStage: '',
 			projectlabel: '',
@@ -50,14 +51,41 @@ export default function usePushOne() {
 		}
 	})
 
+	effect(async () => {
+		const {
+			province
+		} = await getProvinceCity()
+		
+		useCityHooks(province, 2)
+
+		cityList.value = province
+
+		provinces.value = province.map((item, index) => item.provname)
+
+		citys.value = province[0].city.map((item, index) => item.cityname)
+
+		multiArray.value = [provinces.value, citys.value]
+
+		countys.value = province[0].city[0]?.cchilds?.map((item, index) => item.name)
+		// console.log(res);
+	})
+	
+	
+
 	const rules = {
 		projectName: {
 			rules: [{
 				required: true,
 				errorMessage: '不能为空'
-			},{
+			}, {
 				maxLength: 50,
 				errorMessage: '长度最大50个字符',
+			}]
+		},
+		companObj: {
+			rules: [{
+				required: true,
+				errorMessage: '不能为空'
 			}]
 		},
 		cityObj: {
@@ -66,21 +94,15 @@ export default function usePushOne() {
 				errorMessage: '不能为空'
 			}]
 		},
-		location: {
+		loacation: {
 			rules: [{
 				required: true,
 				errorMessage: '不能为空'
-			},{
+			}, {
 				maxLength: 50,
 				errorMessage: '长度最大50个字符',
 			}]
 		},
-		// attendance: {
-		// 	rules: [{
-		// 		required: true,
-		// 		errorMessage: '不能为空'
-		// 	}]
-		// },
 		scale: {
 			rules: [{
 				required: true,
@@ -112,41 +134,42 @@ export default function usePushOne() {
 
 		switch (e.detail.column) {
 			case 0: //拖动第1列
-				multiArray[1] = cityList[multiIndex[0]].pchilds.map((item, index) => item.name)
-				multiArray[2] = cityList[multiIndex[0]].pchilds[0].cchilds.map((item, index) => item.name)
-				
+				multiArray.value[1] = cityList.value[multiIndex[0]].city.map((item, index) => item.cityname)
+				// multiArray.value[2] = cityList.value[multiIndex[0]].city[0]?.cchilds?.map((item, index) => item.name)
+
 				// console.log(cityList[multiIndex[0]].pchilds[0])
-				
-				
+
+
 				multiIndex.splice(1, 1, 0)
-				multiIndex.splice(2, 1, 0)
-				break
-			case 1: //拖动第1列
-				// const p = cityList[multiIndex[0]]
-				multiArray[2] = cityList[multiIndex[0]].pchilds[multiIndex[1]].cchilds.map((item, index) => item.name)
-				
-				
-				console.log(multiIndex[1])
-				
-				multiIndex.splice(2, 1, 0)
-				break
+				// multiIndex.splice(2, 1, 0)
+				break;
+				// 	case 1: //拖动第1列
+				// 		// const p = cityList[multiIndex[0]]
+				// 		multiArray[2] = cityList[multiIndex[0]].pchilds[multiIndex[1]].cchilds.map((item, index) => item.name)
+
+
+				// 		console.log(multiIndex[1])
+
+				// 		multiIndex.splice(2, 1, 0)
+				// 		break
 		}
 	}
 
 	const bindPickerChange = (e) => {
-		console.log('eee', cityList[multiIndex[0]]);
-		const codeObj = cityList[multiIndex[0]]
-		const code1 = codeObj.code
-		const code2 = codeObj.pchilds[multiIndex[1]].code
-		const code3 = codeObj.pchilds[multiIndex[1]].cchilds[multiIndex[2]].code
-		baseFormData.cityObj.str = [multiArray[0][multiIndex[0]], multiArray[1][multiIndex[1]], multiArray[2][multiIndex[2]]].join('/')
-		baseFormData.cityObj.codes = [code1,code2,code3]
+		console.log('eee', cityList.value[multiIndex[0]]);
+		const codeObj = cityList.value[multiIndex[0]]
+		const code1 = codeObj.locationcode
+		const code2 = codeObj.city[multiIndex[1]].locationcode
+		// const code3 = codeObj.pchilds[multiIndex[1]].cchilds[multiIndex[2]].code
+		baseFormData.cityObj.str = [multiArray.value[0][multiIndex[0]], multiArray.value[1][multiIndex[1]]].join('/')
+		baseFormData.cityObj.codes = [code1, code2]
 	}
 
 	// const trueFalseArray = ref(['是', '否'])
 
 	const scaleArray = ref(['0——50W', '50W——100W', '100W——150W'])
 	const financeStageArray = ref(['天使轮', 'A轮', 'B轮', 'C轮', 'D轮', '未融资', '不需要融资'])
+	const companyArray = ref(['企业', '个人'])
 
 	const pickerChange = (e) => {
 		let index = e.detail.value
@@ -193,6 +216,7 @@ export default function usePushOne() {
 		pickerChange,
 		financeStageArray,
 		scaleArray,
+		companyArray,
 		setImg,
 		rules
 	}

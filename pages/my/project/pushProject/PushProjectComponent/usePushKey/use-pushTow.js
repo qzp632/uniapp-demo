@@ -20,7 +20,7 @@ export default function usePushTow() {
 	} = reactive({
 		baseFormData: {
 			logos: [],
-			// licenses: [],
+			otherPics: [],
 			certifications: []
 		}
 	})
@@ -32,12 +32,12 @@ export default function usePushTow() {
 				errorMessage: '不能为空'
 			}]
 		},
-		// licenses: {
-		// 	rules: [{
-		// 		required: true,
-		// 		errorMessage: '不能为空'
-		// 	}]
-		// },
+		otherPics: {
+			rules: [{
+				required: true,
+				errorMessage: '不能为空'
+			}]
+		},
 		certifications: {
 			rules: [{
 				required: true,
@@ -87,6 +87,8 @@ export default function usePushTow() {
 							url: path,
 							name: load
 						})
+						
+						console.log(baseFormData);
 
 						if (temp.length === tempFilePaths.length) {
 							uni.hideLoading();

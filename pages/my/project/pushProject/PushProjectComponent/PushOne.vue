@@ -17,6 +17,7 @@
 		bindPickerChange,
 		pickerChange,
 		financeStageArray,
+		companyArray,
 		scaleArray,
 		rules
 	} = usePushOne()
@@ -35,8 +36,11 @@
 	const emit = defineEmits(['labelEl'])
 	
 	uni.$on('getLb',function(data){
-		console.log('data', data);
 		baseFormData.projectlabel = data.length ? data : ''
+	})
+	
+	uni.$on('getCom',function(data){
+		baseFormData.companObj.str = data.str
 	})
 	
 	const getLabel = (e) => {
@@ -50,12 +54,25 @@
 		navigateTo("/pages/label/label")
 	}
 	
+	const getCompan = (e) => {
+	
+		const target = e?.target || e?.path[0]
+	
+		if (target.dataset.key === 's') {
+			return
+		}
+		// emit('labelEl')
+		navigateTo("/pages/compan/compan")
+	}
+	
+	
 	const getEl = async () => {
+		// console.log('baseFormData.projectlabel', baseFormData.projectlabel);
 		return await formEl(valiForm.value)	
 	}
 	
 	const setProjectlabel = (ars) => {
-		console.log(ars);
+		// console.log(ars);
 		baseFormData.projectlabel = ars
 	}
 	
@@ -74,14 +91,16 @@
 	}
 </script>
 <template>
+	
+	<!-- :rules="rules" -->
 
 	<uni-forms class="push-wrapper-forms" :rules="rules" ref="valiForm" :modelValue="baseFormData">
 
-		<uni-forms-item label="项目名称" :labelWidth="80" name="projectName">
+		<uni-forms-item label="项目名称" :labelWidth="90" name="projectName">
 			<uni-easyinput v-model="baseFormData.projectName" placeholder="项目名称" />
 		</uni-forms-item>
 
-		<uni-forms-item label="城市" :labelWidth="80" name="cityObj">
+		<uni-forms-item label="城市" :labelWidth="90" name="cityObj">
 			<picker mode="multiSelector" @change="bindPickerChange" @columnchange="bindMultiPickerColumnChange"
 				:value="multiIndex" :range="multiArray">
 				<div class="bottom-line">
@@ -92,15 +111,15 @@
 			</picker>
 		</uni-forms-item>
 
-		<uni-forms-item label="详细地址" :labelWidth="80" name="location">
-			<uni-easyinput v-model="baseFormData.location" placeholder="详细地址" />
+		<uni-forms-item label="详细地址" :labelWidth="90" name="loacation">
+			<uni-easyinput v-model="baseFormData.loacation" placeholder="详细地址" />
 		</uni-forms-item>
 
-<!-- 		<uni-forms-item label="参与人数" :labelWidth="80" name="attendance">
+<!-- 		<uni-forms-item label="参与人数" :labelWidth="90" name="attendance">
 			<uni-easyinput v-model="baseFormData.attendance" placeholder="参与人数" />
 		</uni-forms-item> -->
 
-		<uni-forms-item label="规模" :labelWidth="80" name="scale">
+		<uni-forms-item label="规模" :labelWidth="90" name="scale">
 			<!-- <uni-easyinput v-model="baseFormData.scale" placeholder="规模" /> -->
 			<picker @change="pickerChange" :range="scaleArray" data-key="scale"
 				:data-ars="scaleArray">
@@ -112,7 +131,7 @@
 			</picker>
 		</uni-forms-item>
 
-		<uni-forms-item label="财务阶段" :labelWidth="80" name="financeStage">
+		<uni-forms-item label="财务阶段" :labelWidth="90" name="financeStage">
 			<picker @change="pickerChange" :range="financeStageArray" data-key="financeStage"
 				:data-ars="financeStageArray">
 				<div class="bottom-line">
@@ -123,7 +142,7 @@
 			</picker>
 		</uni-forms-item>
 
-		<uni-forms-item label="项目标签" :labelWidth="80" name="projectlabel">
+		<uni-forms-item label="项目标签" :labelWidth="90" name="projectlabel">
 			<div class="bottom-line" @click="getLabel($event)">
 				<div class="text" v-if="baseFormData.projectlabel">
 					
@@ -142,8 +161,30 @@
 			</div>
 			<!-- <uni-easyinput v-model="baseFormData.projectlabel" placeholder="项目标签" /> -->
 		</uni-forms-item>
-
-		<uni-forms-item label="项目介绍" :labelWidth="80" name="projectInfo">
+		
+		<uni-forms-item label="企业或个人" :labelWidth="90" name="company">
+			<picker @change="pickerChange" :range="companyArray" data-key="company"
+				:data-ars="companyArray">
+				<div class="bottom-line">
+					<span class="text" v-if="baseFormData.company">{{ baseFormData.company }}</span>
+					<span class="text desc" v-else>请选择公司或个人</span>
+					<uni-icons class="icon" type="bottom" color="#DCDFE6" size="22"></uni-icons>
+				</div>
+			</picker>
+		</uni-forms-item>
+		
+		<uni-forms-item label="公司信息" :labelWidth="90" name="companObj" v-if="baseFormData.company === '企业'">
+			<div class="bottom-line" @click="getCompan($event)">
+				<div class="text" v-if="baseFormData.companObj.str">
+					<span data-key="s">{{ baseFormData.companObj.str }}</span>
+					<!-- <span class="tab" data-key="s" v-for="(item, index) in baseFormData.projectlabel" :key="index">{{ item.txt }}</span> -->
+				</div>
+				<span class="text desc" v-else >请选择公司</span>
+				<uni-icons class="icon" type="right" color="#DCDFE6" size="22"></uni-icons>
+			</div>
+		</uni-forms-item>
+				
+		<uni-forms-item label="项目介绍" :labelWidth="90" name="projectInfo">
 			<uni-easyinput class="tarea" type="textarea" v-model="baseFormData.projectInfo" placeholder="项目介绍" />
 		</uni-forms-item>
 	</uni-forms>

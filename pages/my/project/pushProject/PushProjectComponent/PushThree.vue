@@ -26,12 +26,11 @@
 
 	const baseFormData = reactive({
 		aaObj: {},
-		bb: "",
-		cc: "",
-		dd: "",
-		ee1: "",
-		ee2: "",
-		ff: "",
+		sourcename: "",
+		count: "",
+		maxamount: "",
+		minamount: "",
+		percent: "",
 		gg: ""
 	})
 	
@@ -47,37 +46,31 @@
 				errorMessage: '不能为空'
 			}]
 		},
-		bb: {
+		sourcename: {
 			rules: [{
 				required: true,
 				errorMessage: '不能为空'
 			}]
 		},
-		cc: {
+		count: {
 			rules: [{
 				required: true,
 				errorMessage: '不能为空'
 			}]
 		},
-		dd: {
+		maxamount: {
 			rules: [{
 				required: true,
 				errorMessage: '不能为空'
 			}]
 		},
-		ee1: {
+		minamount: {
 			rules: [{
 				required: true,
 				errorMessage: '不能为空'
 			}]
 		},
-		ee2: {
-			rules: [{
-				required: true,
-				errorMessage: '不能为空'
-			}]
-		},
-		ff: {
+		percent: {
 			rules: [{
 				required: true,
 				errorMessage: '不能为空'
@@ -111,7 +104,7 @@
 				multiArray[2] = cityList[multiIndex[0]].pchilds[multiIndex[1]].cchilds.map((item, index) => item.name)
 				
 				
-				console.log(multiIndex[1])
+				// console.log(multiIndex[1])
 				
 				multiIndex.splice(2, 1, 0)
 				break
@@ -119,7 +112,7 @@
 	}
 	
 	const bindPickerChange = (e) => {
-		console.log('eee', cityList[multiIndex[0]]);
+		// console.log('eee', cityList[multiIndex[0]]);
 		const codeObj = cityList[multiIndex[0]]
 		const code1 = codeObj.code
 		const code2 = codeObj.pchilds[multiIndex[1]].code || ''
@@ -142,9 +135,9 @@
 	const add = async () => {
 		const el = await formEl(valiForm.value)
 		const sum = ars.value.length && ars.value.reduce(function(prev, cur) {
-		    return (+cur.ff) + prev;
+		    return (+cur.percent) + prev;
 		}, 0);
-		if (el.ff > 100) {
+		if (el.percent > 100) {
 			uni.showToast({
 				title:'比例不能超过100%'
 			})
@@ -152,7 +145,7 @@
 		}
 		
 
-		if (((+el.ff) + sum )> 100) {
+		if (((+el.percent) + sum )> 100) {
 			uni.showToast({
 				title:'比例不能超过100%'
 			})
@@ -162,14 +155,13 @@
 		ars.value.push(el)
 		baseFormData.aa = ''
 		baseFormData.aaObj.str = ''
-		baseFormData.bb = ''
-		baseFormData.cc = ''
-		baseFormData.dd = ''
-		baseFormData.ee1 = ''
-		baseFormData.ee2 = ''
-		baseFormData.ff = ''
+		baseFormData.sourcename = ''
+		baseFormData.count = ''
+		baseFormData.maxamount = ''
+		baseFormData.minamount = ''
+		baseFormData.percent = ''
 		baseFormData.gg = ''
-		console.log(ars.value);
+		// console.log(ars.value);
 	}
 	
 	defineExpose({
@@ -195,35 +187,27 @@
 				</picker>
 				
 			</uni-forms-item>
-			
 
-			<uni-forms-item label="资源自定义名称" :labelWidth="140" name="bb">
-				<uni-easyinput v-model="baseFormData.bb" placeholder="资源自定义名称" />
+			<uni-forms-item label="资源自定义名称" :labelWidth="140" name="sourcename">
+				<uni-easyinput v-model="baseFormData.sourcename" placeholder="资源自定义名称" />
 			</uni-forms-item>
 
-			<uni-forms-item label="所需数量" :labelWidth="140" name="cc">
-				<uni-easyinput type="number" v-model="baseFormData.cc" placeholder="所需数量" />
+			<uni-forms-item label="所需数量" :labelWidth="140" name="count">
+				<uni-easyinput type="number" v-model="baseFormData.count" placeholder="所需数量" />
 			</uni-forms-item>
 
-			<uni-forms-item label="规模" :labelWidth="140" name="dd">
-				<uni-easyinput type="number" v-model="baseFormData.dd" placeholder="规模" />
-			</uni-forms-item>
-
-			<uni-forms-item label="最小数量" :labelWidth="140" name="ee1">
-				<uni-easyinput type="number" v-model="baseFormData.ee1" placeholder="最小数量/最大数量" />
+			<uni-forms-item label="最小数量" :labelWidth="140" name="maxamount">
+				<uni-easyinput type="number" v-model="baseFormData.maxamount" placeholder="最小数量/最大数量" />
 			</uni-forms-item>
 			
-			<uni-forms-item label="最大数量" :labelWidth="140" name="ee2">
-				<uni-easyinput type="number" v-model="baseFormData.ee2" placeholder="最小数量/最大数量" />
+			<uni-forms-item label="最大数量" :labelWidth="140" name="minamount">
+				<uni-easyinput type="number" v-model="baseFormData.minamount" placeholder="最小数量/最大数量" />
 			</uni-forms-item>
 			
-			<uni-forms-item label="所在比例(%)" :labelWidth="140" name="ff">
-				<uni-easyinput type="number" v-model="baseFormData.ff" placeholder="所在比例" />
+			<uni-forms-item label="所在比例(%)" :labelWidth="140" name="percent">
+				<uni-easyinput type="number" v-model="baseFormData.percent" placeholder="所在比例" />
 			</uni-forms-item>
 
-			<uni-forms-item label="回报加入方式" :labelWidth="140" name="gg">
-				<uni-easyinput v-model="baseFormData.gg" placeholder="回报加入方式" />
-			</uni-forms-item>
 		</uni-forms>
 	</uni-section>
 
@@ -231,7 +215,7 @@
 
 	<uni-section title="已添加资源列表" type="line">
 		<uni-collapse accordion>
-			<uni-collapse-item class="bg" v-for="(item, index) in ars" :key="index" :title="item.bb" :show-animation="true">
+			<uni-collapse-item class="bg" v-for="(item, index) in ars" :key="index" :title="item.sourcename" :show-animation="true">
 				<div class="collItem-div">
 					<span class="cot">分类</span>
 					<span>{{ item.aaObj.str }}</span>
@@ -240,24 +224,20 @@
 				<div class="collItem">
 
 					<div class="collItem-div">
-						<span class="cot">规模</span>
-						<span>{{ item.cc }}</span>
-					</div>
-					<div class="collItem-div">
 						<span class="cot">数量</span>
-						<span>{{ item.dd }}</span>
+						<span>{{ item.count }}</span>
 					</div>
 					<div class="collItem-div">
 						<span class="cot">最大</span>
-						<span>{{ item.ee1 }}</span>
+						<span>{{ item.maxamount }}</span>
 					</div>
 					<div class="collItem-div">
 						<span class="cot">最小</span>
-						<span>{{ item.ee2 }}</span>
+						<span>{{ item.minamount }}</span>
 					</div>
 					<div class="collItem-div">
 						<span class="cot">比例</span>
-						<span>{{ item.ff }}</span>
+						<span>{{ item.percent }}</span>
 					</div>
 					<div class="collItem-div">
 						<span class="cot">方式</span>

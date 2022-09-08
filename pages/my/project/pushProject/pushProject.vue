@@ -50,7 +50,7 @@
 		elObj.value['el2']= el
 		
 		const { el0, el1, el2 } = elObj.value
-		console.log(el0);
+		console.log('el2el2', el2);
 		const { projectName, cityObj, location, scale, financeStage, projectlabel, projectInfo } = el0
 		const { logos, certifications, otherPics } = el1
 
@@ -99,8 +99,7 @@
 	const onClose = () => {
 		isLabel.value = false
 	}
-	
-	
+
 	
 </script>
 

@@ -3,6 +3,10 @@
 	import {
 		axios
 	} from '@/utils/axios.js'
+	import {
+		navigateTo,
+		setStorage
+	} from '@/utils/index.js'
 	import TopNav from '@/components/topNav/TopNav.vue'
 	
 	const isState = ref(null)
@@ -26,7 +30,7 @@
         }
     ])
 	
-	effect(async() => {
+	const runder = effect(async() => {
 		const result = await axios.post({
 			url: '/project/getCompanyList', //仅为示例，并非真实接口地址。
 			data: {}
@@ -36,34 +40,32 @@
 		// console.log(result.content.companylist);
 	})
 	
-	const submit = () => {
-		uni.$emit('getCom',{
-			str: '上海xxxxx科技有限公司'
-		})
-		uni.navigateBack({
-			delta: 1
-		});
-	}
+	uni.$on('addCom',function(){
+		runder()
+	})
 	
 	const onClick = async(e) => {
-		console.log(666);
 		const state = e.content.key
 		if (!state) return
 		const item = currentItem.value
 
 		if (state == 1) {
-
-			
+			setStorage('edit_com', item)
+			navigateTo("/pages/compan/addCompan/addCompan")
 		} else {
 			const result = await axios.post({
 				url: '/project/updateCompany', //仅为示例，并非真实接口地址。
 				data: {
-					"isactive": "0",
-					"cid": item.cid
+					...item,
+					createby: uni.getStorageSync('user-id'),
+					isactive: "0"
 				}
 			})
 			
-			console.log(result);
+			uni.showToast({
+				title:'删除成功'
+			})
+			runder()
 		}
 	}
 
@@ -71,13 +73,18 @@
 		currentItem.value = item
 	}
 	
-	const go = (item) => {
+	const checkCom = (item) => {
 		uni.$emit('getCom',{
 			str: item.companyname
 		})
 		uni.navigateBack({
 			delta: 1
 		});
+	}
+	
+	const add = () => {
+		setStorage('edit_com', '')
+		navigateTo("/pages/compan/addCompan/addCompan")
 	}
 </script>
 
@@ -88,7 +95,7 @@
 	<view class="basicInfo">
 		<uni-swipe-action>
 			<uni-swipe-action-item :right-options="options" @change="swipeChange(item)" @click="onClick" v-for="(item, index) in compans" :key="index">
-				<div class="action-item" @click="go(item)">
+				<div class="action-item" @click="checkCom(item)">
 					<span class="name">{{ item.companyname }}</span>
 				</div>
 			</uni-swipe-action-item>
@@ -96,7 +103,7 @@
 		</uni-swipe-action>
 
 				
-		<button class="btn" type="primary" @click="submit">
+		<button class="btn" type="primary" @click="add">
 			<uni-icons type="plusempty" size="20" color="#fff"></uni-icons>
 			新增公司信息
 		</button>

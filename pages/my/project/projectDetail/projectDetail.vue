@@ -10,8 +10,18 @@
 	
 	import TopNav from '@/components/topNav/TopNav.vue'
 	
-	effect(() => {
+	const pro = uni.getStorageSync('pro-detail')
+	// console.log(detail);
+	
+	effect(async() => {
+		const result = await axios.post({
+			url: '/project/getdetail', //仅为示例，并非真实接口地址。
+			data: {
+				"projectId": pro.id
+			}
+		})
 		
+		console.log('result', result);
 	})
 	
 </script>

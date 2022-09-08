@@ -136,32 +136,37 @@
 	}
 
 	.push-img, .upload-img {
-		// width: 33.3%;
-		// height: 0;
-		// padding-top: 33.3%;
 		width: 200rpx;
 		height: 200rpx;
 		margin: 20rpx 10rpx ;
-		background: #999;
+		background: #fff;
+		border-radius: 18rpx;
 	}
+	
 	.upload-img {
-		background: #ccc;
+		background: #fff;
 		position: relative;
+		border: 2rpx solid #ccc;
 		.heng {
 			position: absolute;
-			width: 100%;
-			height: 20rpx;
+			width: 100rpx;
+			height: 10rpx;
 			background: #DCDFE6;
 			top: 50%;
-			transform: translate(0, -50%);
+			left: 50%;
+			transform: translate(-50%, -50%);
 		}
 		.shu {
 			position: absolute;
-			width: 20rpx;
-			height: 100%;
+			width: 10rpx;
+			height: 100rpx;
 			background: #DCDFE6;
+			top: 50%;
 			left: 50%;
-			transform: translate(-50%, 0);
+			transform: translate(-50%, -50%);
 		}
+	}
+	.lisence {
+		flex-direction: column!important;
 	}
 </style>

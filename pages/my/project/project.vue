@@ -54,8 +54,9 @@
 	}
 	
 	const getItem = (item) => {
-		console.log(item);
+		// console.log(item);
 		setStorage('pro-detail', item)
+		navigateTo("/pages/my/project/projectDetail/projectDetail")
 	}
 </script>
 <template>

@@ -61,6 +61,8 @@
 			<image class="ig img" :src="imgUrl" mode=""></image>
 		</div>
 	</TopNav>
+	
+	
 
 	<MyContent :im1Style="im1Style" :imgUrl="imgUrl"></MyContent>
 

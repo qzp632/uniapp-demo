@@ -5,12 +5,7 @@
 	<view>
 		<view class="uni-padding-wrap uni-common-mt">
 			<view>
-				<scroll-view scroll-y="true" class="scroll-Y" 
-					@scrolltolower="lower" lower-threshold="50">
-					<view id="demo1" class="scroll-view-item uni-bg-red">A</view>
-					<view id="demo2" class="scroll-view-item uni-bg-green">B</view>
-					<view id="demo3" class="scroll-view-item uni-bg-blue">C</view>
-				</scroll-view>
+				<fly-qlist></fly-qlist>
 			</view>
 
 		</view>
